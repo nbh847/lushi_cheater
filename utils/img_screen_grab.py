@@ -19,6 +19,6 @@ def delete_img(file_path_name):
     else:
         print('文件: {} 不存在'.format(file_path_name))
 
-file_path_name = "D:\\Python27\\workspace\\lushi_cheater\\screen_shut_file\\end_turn.jpg"
-position_tuple = (1065, 335, 1155, 363)
-get_area_img(file_path_name, position_tuple)
+# file_path_name = "D:\\Python27\\workspace\\lushi_cheater\\screen_shut_file\\end_turn.jpg"
+# position_tuple = (1065, 335, 1155, 363)
+# get_area_img(file_path_name, position_tuple)

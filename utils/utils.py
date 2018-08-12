@@ -2,8 +2,8 @@
 import math
 import random
 import time
-import pyautogui
 
+import pyautogui
 from img_compare import compare
 from img_screen_grab import get_area_img, delete_img
 
@@ -15,7 +15,7 @@ from img_screen_grab import get_area_img, delete_img
 class Utils:
 
     def __init__(self):
-        pass
+        pyautogui.FAILSAFE = True
 
     def pause_random_time(self):
         '''
@@ -28,8 +28,8 @@ class Utils:
         结束回合后移动到一个随机位置
         :return:
         '''
-        pos_x = random.randint(318, 1025)
-        pos_y = random.randint(271, 480)
+        pos_x = random.randint(318, 559)
+        pos_y = random.randint(271, 436)
         self.mouse_move_by_humen_speed(pos_x, pos_y)
 
     def locate_mouse_position(self):
@@ -59,7 +59,7 @@ class Utils:
         # 鼠标到目标的距离
         mouse_locate_length = self.get_length(mouse_now, (pix_x, pix_y))
         # 人的鼠标移动速度
-        humen_speed = random.randint(480, 530)
+        humen_speed = random.randint(650, 780)
         # 移动花费的总时间
         whole_time = mouse_locate_length / humen_speed
         return whole_time
@@ -94,7 +94,7 @@ class Utils:
         compare_result = compare(store_path, compare_img_path)
         # 删除临时截图
         delete_img(store_path)
-        if compare_result is True:
+        if compare_result <= 15:
             print('可以使用英雄技能')
             return True
         else:
@@ -124,7 +124,7 @@ class Utils:
         compare2 = compare(store_path, compare_img_path_2)
         # 删除临时截图
         delete_img(store_path)
-        if compare1 or compare2:
+        if compare1 <= 25 or compare2 <= 19:
             print('是我的回合')
             return True
         else:
@@ -138,31 +138,122 @@ class Utils:
         '''
         pass
 
+    def drag_cards_to_ground(self):
+        '''
+        把随从从手里拖到场上
+        '''
+        pix_x = random.randint(316, 1029)
+        pix_y = random.randint(390, 467)
+        whole_time = self.get_humen_time(pix_x, pix_y)
+        pyautogui.dragTo(pix_x, pix_y, whole_time)
+
+    def drag_cards_to_fight_hero(self):
+        '''
+        让随从打敌方英雄的脸
+        '''
+        pix_x = random.randint(652, 725)
+        pix_y = random.randint(127, 172)
+        whole_time = self.get_humen_time(pix_x, pix_y)
+        pyautogui.dragTo(pix_x, pix_y, whole_time)
+        pyautogui.rightClick()
+
+    def follower_action(self):
+        '''
+        让能行动的随从攻击敌方英雄
+        '''
+        index = 0
+        for i in range(10):
+            print('开始打敌方英雄的脸第{}次'.format(i + 1))
+            start_x = 1013 + random.randint(-10, 10) + index
+            start_y = 429 + random.randint(-29, 29)
+            self.mouse_move_by_humen_speed(start_x, start_y)
+            self.drag_cards_to_fight_hero()
+            index -= 68
+
+    def move_cards(self):
+        # 移动到底部最左边打出所有能打出的随从
+        index = 0
+        for i in range(10):
+            print('开始移动第{}次'.format(i + 1))
+            start_x = 453 + random.randint(-10, 10) + index
+            start_y = 734 + random.randint(-29, 29)
+            self.mouse_move_by_humen_speed(start_x, start_y)
+            self.drag_cards_to_ground()
+            index += 47
+        # 把场上所有能行动的随从全部行动
+        self.follower_action()
+
+    def confirm_game_start(self):
+        '''
+        确认是否要点击游戏确认开始按钮
+        '''
+        position = (660, 597, 716, 619)
+        store_path = "D:\\Python27\\workspace\\lushi_cheater\\screen_shut_file\\game_confirm_start.jpg"
+        get_area_img(store_path, position)
+        compare_img_path = "D:\\Python27\\workspace\\lushi_cheater\\imgs\\game_confirm_start.jpg"
+        compare_result = compare(store_path, compare_img_path)
+        # 删除临时截图
+        delete_img(store_path)
+        if compare_result <= 7:
+            print('需要点击游戏确认按钮')
+            mouse_x = random.randint(660, 716)
+            mouse_y = random.randint(597, 619)
+            self.mouse_move_by_humen_speed(mouse_x, mouse_y)
+            pyautogui.click()
+            print('已点击')
+        else:
+            print('不需要点击游戏确认按钮')
+
+    def confirm_standard_game_begin(self):
+        '''
+        确认是否需要点击标准对战按钮
+        '''
+        position = (963, 591, 1036, 662)
+        store_path = "D:\\Python27\\workspace\\lushi_cheater\\screen_shut_file\\game_standard_begin.jpg"
+        get_area_img(store_path, position)
+        compare_img_path = "D:\\Python27\\workspace\\lushi_cheater\\imgs\\game_standard_begin.jpg"
+        compare_result = compare(store_path, compare_img_path)
+        # 删除临时截图
+        delete_img(store_path)
+        if compare_result <= 12:
+            print('需要点击标准对战按钮')
+            mouse_x = random.randint(963, 1036)
+            mouse_y = random.randint(591, 662)
+            self.mouse_move_by_humen_speed(mouse_x, mouse_y)
+            pyautogui.click()
+            print('已点击')
+        else:
+            print('不需要点击标准对战按钮')
+
     def play_game_card(self):
-        # 移动到底部最左边
-        # index = 0
-        # for i in range(10):
-        #     print('开始移动第{}次'.format(i+1))
-        #     time.sleep(random.randint(1, 3))
-        #     start_x = 861 + random.randint(-10, 10) + index
-        #     start_y = 730 + random.randint(-29, 29)
-        #     self.mouse_move_by_humen_speed(start_x, start_y)
-        #     index -= 47
-        # self.end_my_turn()
+        '''
+        游戏行动模块
+        '''
         while True:
+            # 点击一下，确认可以退出每局结束的比赛
+            pyautogui.click()
+            # 检查是否需要点击标准对战
+            self.confirm_standard_game_begin()
+            # 检查是否需要点击确认游戏
+            self.confirm_game_start()
+            # time.sleep(2000)
             # 检查是否结束了游戏
             if self.game_over():
                 break
             # 检查是否是本回合
             if self.is_my_turn():
+                # 暂停6s等待所有的卡牌加载完
+                time.sleep(random.randint(3, 6))
+                # 开始出牌
+                self.move_cards()
                 # 检查是否有英雄技能，有就使用
-                if self.has_hero_skill() is True:
-                    self.use_hero_skill()
+                # if self.has_hero_skill() is True:
+                self.use_hero_skill()
                 # 结束本回合，之后检查是否到了自己行动的回合
                 self.end_my_turn()
             else:
                 print('每5s检查一次是否到了我的回合')
-                time.sleep(random.randint(4, 8))
+                time.sleep(random.randint(2, 4))
 
     def run(self):
         # 定位鼠标位置
@@ -172,23 +263,8 @@ class Utils:
         self.mouse_move_by_humen_speed(210, 741)
         pyautogui.click()
         time.sleep(random.randint(1, 3))
-        # 点击设置按钮
-        # img_path = 'D:/Python27/workspace/lushi_cheater/imgs/setting_btn.PNG'
-        # left, top, wigth, height = pyautogui.locateOnScreen(img_path)
-        # self.mouse_move_by_humen_speed(left + wigth / 2, top + height / 2)
-        # pyautogui.click()
-        # 点击开始
-        # self.mouse_move_by_humen_speed(690, 606)
-        # pyautogui.click()
-        # time.sleep(random.randint(1, 3))
         # 点击最下方的牌库循环出牌
         self.play_game_card()
-        # self.mouse_move_by_humen_speed(672, 711)
-        # self.mouse_move_by_humen_speed(1317, 20)
-        # time.sleep(1)
-        # pyautogui.mouseDown(button='left')
-        # pyautogui.mouseUp(button='left')
-        # self.mouse_drog_by_humen_speed(300, 400)
 
 
 if __name__ == '__main__':
