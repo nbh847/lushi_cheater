@@ -231,7 +231,7 @@ class Utils:
         '''
         while True:
             # 点击一下，确认可以退出每局结束的比赛
-            pyautogui.click()
+            pyautogui.click(683, 458)
             # 检查是否需要点击标准对战
             self.confirm_standard_game_begin()
             # 检查是否需要点击确认游戏
