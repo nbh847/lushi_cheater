@@ -48,7 +48,7 @@ class Utils:
         # 鼠标到目标的距离
         mouse_locate_length = self.get_length(mouse_now, (pix_x, pix_y))
         # 人的鼠标移动速度
-        humen_speed = random.randint(650, 780)
+        humen_speed = random.randint(750, 880)
         # 移动花费的总时间
         whole_time = mouse_locate_length / humen_speed
         return whole_time
@@ -207,7 +207,14 @@ class Utils:
             ...
         if hero == '牧师':
             # 牧师的攻击方式
-            ...
+            mouse_x = random.randint(789, 835)
+            mouse_y = random.randint(565, 604)
+            self.mouse_move_by_humen_speed(mouse_x, mouse_y)
+            mouse_x = random.randint(649, 711)
+            mouse_y = random.randint(573, 611)
+            self.mouse_drog_by_humen_speed(mouse_x, mouse_y)
+            pyautogui.rightClick()
+
 
     # 游戏行动模块
     def play_game_card(self):
@@ -230,11 +237,11 @@ class Utils:
                 # 开始出牌
                 self.move_cards()
                 # 使用不同的英雄的攻击方式
-                self.attack_by_hero('战士')
+                # self.attack_by_hero('战士')
                 # self.attack_by_hero('德鲁伊')
                 # self.attack_by_hero('法师')
                 # self.attack_by_hero('术士')
-                # self.attack_by_hero('牧师')
+                self.attack_by_hero('牧师')
                 # 结束本回合，之后检查是否到了自己行动的回合
                 self.end_my_turn()
             else:
@@ -244,7 +251,7 @@ class Utils:
     # 游戏运行入口
     def run(self):
         # 定位鼠标位置
-        # self.locate_mouse_position()
+        self.locate_mouse_position()
         time.sleep(10)
         # 点击图标进入游戏主界面
         self.mouse_move_by_humen_speed(210, 741)
