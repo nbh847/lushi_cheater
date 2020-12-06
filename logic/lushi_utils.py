@@ -5,8 +5,8 @@ import time
 
 import pyautogui
 
-from utils.img_compare import compare
-from utils.img_screen_grab import get_area_img, delete_img
+from lushi_cheater.logic.img_compare import compare
+from lushi_cheater.logic.img_screen_grab import get_area_img, delete_img
 
 ''' 
 工具库，提供各种集成方法
@@ -214,7 +214,6 @@ class Utils:
             mouse_y = random.randint(573, 611)
             self.mouse_drog_by_humen_speed(mouse_x, mouse_y)
             pyautogui.rightClick()
-
 
     # 游戏行动模块
     def play_game_card(self):

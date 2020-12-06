@@ -12,6 +12,7 @@ def get_area_img(file_path_name, position_tuple):
     im = ImageGrab.grab(position_tuple)
     im.save(file_path_name)
 
+
 def delete_img(file_path_name):
     if os.path.exists(file_path_name):
         os.remove(file_path_name)

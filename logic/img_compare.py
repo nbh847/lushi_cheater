@@ -3,7 +3,8 @@ import math
 import operator
 import functools
 
-def compare(pic1,pic2):
+
+def compare(pic1, pic2):
     '''
     :param pic1: 图片1路径
     :param pic2: 图片2路径
@@ -16,8 +17,9 @@ def compare(pic1,pic2):
     histogram1 = image1.histogram()
     histogram2 = image2.histogram()
 
-    differ = math.sqrt(functools.reduce(operator.add, list(map(lambda a,b: (a-b)**2,histogram1, histogram2)))/len(histogram1))
-    print (differ)
+    differ = math.sqrt(
+        functools.reduce(operator.add, list(map(lambda a, b: (a - b) ** 2, histogram1, histogram2))) / len(histogram1))
+    print(differ)
     return differ
 # pic_1 = "D:\\Python27\\workspace\\lushi_cheater\\screen_shut_file\\game_confirm_start.jpg"
 # pic_2 = "D:\\Python27\\workspace\\lushi_cheater\\screen_shut_file\\game_confirm_start.jpg"

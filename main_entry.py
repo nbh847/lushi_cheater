@@ -10,6 +10,6 @@
 # screenWidth, screenHeight = pyautogui.size()
 # print(screenWidth, screenHeight)
 # pyautogui.moveTo(screenWidth / 3, screenHeight / 3)
-from utils.utils import Utils
+from lushi_cheater.logic.lushi_utils import Utils
 
 Utils().run()

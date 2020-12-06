@@ -1,5 +1,4 @@
 # coding=utf-8
-from utils.img_compare import compare
 
 import pyautogui
 
